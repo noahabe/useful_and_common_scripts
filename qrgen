@@ -1,11 +1,23 @@
-#!/home/data53/code/repos/useful_and_common_scripts/env/bin/python
+#! /home/data53/code/repos/useful_and_common_scripts/env/bin/python
 import argparse 
 import qrcode 
+import sys
 
 def generate_qr_code(msg: str, display_to_stdout = False, save_to_file=None): 
-    img = qrcode.make(msg)
+    qr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=10,
+        border=4,
+    )
+    qr.add_data(msg)
+    qr.make(fit=True)
+    img = qr.make_image(fill_color="black", back_color="white")
+    
+
     if display_to_stdout: 
-        print(img)
+        qr.print_ascii(tty = False)
+        sys.stdout.flush()
     if save_to_file is not None: 
         img.save(save_to_file)
 
