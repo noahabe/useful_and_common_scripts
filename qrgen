@@ -1,0 +1,25 @@
+#!/home/data53/code/repos/useful_and_common_scripts/env/bin/python
+import argparse 
+import qrcode 
+
+def generate_qr_code(msg: str, display_to_stdout = False, save_to_file=None): 
+    img = qrcode.make(msg)
+    if display_to_stdout: 
+        print(img)
+    if save_to_file is not None: 
+        img.save(save_to_file)
+
+if __name__ == '__main__': 
+    display_to_stdout = False
+    output_file = None
+    parser = argparse.ArgumentParser()
+    parser.add_argument("msg", help="the message", type=str)
+    parser.add_argument("-d", "--display", help="display to stdout",
+                        action="store_true")
+    parser.add_argument("-o", "--out", help="specify output file", type=str, default=None)
+    args = parser.parse_args()
+    if args.display:
+        display_to_stdout = True
+    if args.out: 
+        output_file = args.out
+    generate_qr_code(msg=args.msg, display_to_stdout=display_to_stdout, save_to_file=output_file)
