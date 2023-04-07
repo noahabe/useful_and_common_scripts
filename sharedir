@@ -1,0 +1,20 @@
+#! /home/data53/code/repos/useful_and_common_scripts/env/bin/python 
+
+from subprocess import PIPE, Popen
+import os 
+
+def getIpAddressOfCurrentComputer() -> str: 
+    command = """ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"""
+    ipaddress = None 
+    with Popen(command, stdout=PIPE, shell=True) as process: 
+        ipaddress = process.communicate()[0].decode('utf-8')
+    ipaddress = ipaddress.strip() 
+    return ipaddress
+
+if __name__ == '__main__':
+    ipaddress = getIpAddressOfCurrentComputer()
+    generate_qr_code = f"""qrgen "http://{ipaddress}:8000/" -d""" 
+    os.system(generate_qr_code)
+    start_server = "python3 -m http.server"
+    os.system(start_server)
+
