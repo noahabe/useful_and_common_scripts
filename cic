@@ -1,3 +1,4 @@
+#! /home/data53/code/repos/useful_and_common_scripts/env/bin/python
 # cic - Check Internet Connection
 
 import os
