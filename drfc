@@ -1,0 +1,13 @@
+#! /home/data53/code/repos/useful_and_common_scripts/env/bin/python
+'''
+give it the RFC id and it will download it. 
+'''
+import os
+
+if __name__ == '__main__': 
+    x = input("enter RFC (Request For Comment) id: (example: 6716)> ")
+    x = x.strip() 
+    assert(x.isdecimal())
+    command = f"wget https://www.rfc-editor.org/rfc/pdfrfc/rfc{x}.txt.pdf"
+    os.system(command)
+    print("done by data53")
