@@ -1,3 +1,21 @@
-#generate passwords and copies the generated password to clipboard
+#! ./env/bin/python
 import secrets
+from string import ascii_letters, digits 
+import sys 
 
+ALPHABET = ascii_letters + digits 
+
+def generate(n: int) -> str: 
+    return ''.join(
+        [
+            secrets.choice(ALPHABET)
+            for _ in range(n)
+        ]
+    )
+
+if __name__ == '__main__': 
+    if len(sys.argv) < 2: 
+        print("Usage: generate <num-of-characters>")
+    n = int(sys.argv[1])
+    print(generate(n=n))
+    
